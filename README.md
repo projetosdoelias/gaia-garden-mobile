@@ -1,56 +1,33 @@
-# Welcome to your Expo app 👋
+# Gaia Garden Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Android and iOS app for Gaia Garden, an IoT platform for monitoring indoor grow environments.
+Built with Expo. See [CLAUDE.md](CLAUDE.md) for the structure and rules.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Run
 
 ```bash
-npm run reset-project
+npm install
+cp .env.example .env   # then set EXPO_PUBLIC_API_URL
+npx expo start --clear # press "a" for Android, "i" for iOS (macOS), or scan the QR code
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Restart with `--clear` after changing `.env`.
 
-### Other setup steps
+| Where the app runs | API | `EXPO_PUBLIC_API_URL` |
+|---|---|---|
+| Android emulator | local | `http://10.0.2.2:3000` |
+| iOS simulator | local | `http://localhost:3000` |
+| Android phone over USB | local | `http://localhost:3000`, after `adb reverse tcp:3000 tcp:3000` |
+| Any device | production | `https://<your API host>` |
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Release builds accept HTTPS only. For a native iOS development build, set `APP_VARIANT=development`
+when running `npx expo run:ios`, so it can reach the local network. Never set it for a release build.
 
-## Learn more
+## Check
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npm run typecheck
+npm run lint
+npm test
+npm audit
+```
